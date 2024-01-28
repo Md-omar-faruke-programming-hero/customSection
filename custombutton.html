@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .button {
+            background-color: #6f6f70;
+            color: #181A1C;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid white;
+            font-weight: 500;
+            font-family: "Poppins", Sans-serif;
+            font-size: 20px;
+            border-radius: 30px;
+            margin: 10px;
+        }
+
+        .fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: #F4F4F4;
+            opacity: 0.5;
+            transition: width 7s linear; /* Adjust the duration for a slower fill effect */
+        }
+    </style>
+</head>
+<body>
+    
+    <button class="button" id="autoFillButton1">Step 1 🌒</button>
+    <button class="button" id="autoFillButton2">Step 2 🌒</button>
+    <button class="button" id="autoFillButton3">Step 3 🌒</button>
+    <button class="button" id="autoFillButton4">Step 4 🌒</button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var buttons = document.querySelectorAll(".button");
+
+            // Add event listener to handle button clicks
+            buttons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    // Reset all buttons' background colors
+                    buttons.forEach(function(btn) {
+                        btn.style.backgroundColor = '#6f6f70';
+                    });
+                    // Set clicked button's background color to white
+                    button.style.backgroundColor = 'white';
+                });
+            });
+        });
+
+
+
+
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var buttons = document.querySelectorAll(".button");
+            var timeouts = [];
+
+            function animateButton(index) {
+                var button = buttons[index];
+                var fill = document.createElement("span");
+                fill.classList.add("fill");
+                button.appendChild(fill);
+
+                // Trigger the fill animation after a delay
+                timeouts[index] = setTimeout(function() {
+                    fill.style.width = "100%";
+
+                    // Change the color of the button to transparent after fill animation completes
+                    setTimeout(function() {
+                        fill.classList.remove("fill");
+                    }, 7000); // 7000 milliseconds = 7 seconds (Same as the fill animation duration)
+                }, index * 7000); // Delay for each button
+            }
+
+            function startAnimation() {
+                for (var i = 0; i < buttons.length; i++) {
+                    animateButton(i);
+                }
+            }
+
+            // Start animation initially
+            startAnimation();
+
+            // Repeat animation after it finishes
+            setInterval(function() {
+                // Remove existing fill spans before starting the animation again
+                buttons.forEach(function(button, index) {
+                    var fill = button.querySelector('.fill');
+                    if (fill) {
+                        fill.remove();
+                        clearTimeout(timeouts[index]);
+                    }
+                });
+                startAnimation();
+            }, buttons.length * 7000); // Repeat after all buttons finish
+
+            // Add event listeners to stop the animation and toggle button background color when clicked
+            buttons.forEach(function(button, index) {
+                button.addEventListener('click', function() {
+                    buttons.forEach(function(btn, i) {
+                        var fill = btn.querySelector('.fill');
+                        if (fill) {
+                            fill.remove(); // Remove fill animation
+                            clearTimeout(timeouts[i]);
+                            btn.style.backgroundColor = '#6f6f70'; // Set default background color for all buttons
+                        }
+                    });
+                    // Set background color to white for the clicked button
+                    button.style.backgroundColor = 'white';
+                });
+            });
+
+            // Prevent animation restart on scroll or reload
+            window.addEventListener('scroll', function() {
+                buttons.forEach(function(button, index) {
+                    var fill = button.querySelector('.fill');
+                    if (fill) {
+                        fill.remove();
+                        clearTimeout(timeouts[index]);
+                    }
+                });
+            });
+
+            window.addEventListener('beforeunload', function() {
+                buttons.forEach(function(button, index) {
+                    var fill = button.querySelector('.fill');
+                    if (fill) {
+                        fill.remove();
+                        clearTimeout(timeouts[index]);
+                    }
+                });
+            });
+        });
+    </script>
+    
+</body>
+</html>
