@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changing Content on Scroll</title>
+    <style>
+        /* Your CSS styles remain unchanged */
+        #meetingSection{
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #meetingContent{
+            margin-top: 40px;
+        }
+
+        #meetingTitle{
+            color:#F4F4F4;
+            font-family: "Poppins", Sans-serif;
+            font-size:80px;
+            letter-spacing: -4px;
+            font-weight: bold;
+        }
+
+        #book{
+            color: #181A1C;
+            letter-spacing: -1px;
+            font-family: "Poppins", Sans-serif;
+            background-color: #F4F4F4;
+            border-radius: 30px;
+            padding: 16px 24px;
+            border:none;
+            outline: none;
+            font-size: 20px;
+        }
+
+        #meetingVideo{
+            width: 480px;
+            height: 580px;
+            
+        }
+
+        /* Basic button styling */
+        .button {
+            background-color: #6f6f70;
+            color: #181A1C;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid white;
+            font-weight: 500;
+            font-family: "Poppins", Sans-serif;
+            font-size: 20px;
+            border-radius: 30px;
+            margin: 10px;
+            letter-spacing: -1px;
+            padding: 14px 24px 14px 24px;
+            margin-right: 12px;
+            margin-top: 68px;
+        }
+
+        .button:focus{
+            border: none;
+            outline: none;
+        }
+
+        .button:hover{
+            opacity: 0.8;
+        }
+
+        .fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: #F4F4F4;
+            opacity: 0.5;
+            transition: width 11s linear;
+        } 
+
+        @media only screen and (max-width: 1000px) {
+            /* Styles specific for screens less than or equal to 1000px */
+            #meetingSection {
+                flex-direction: column;
+            }
+            .buttonGrp{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            #book{
+                margin-top: 10px;
+                margin-bottom: 110px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="meetingSection">
+        <div id="meetingContent">
+            <h2 id="meetingTitle"></h2>
+            <button id="book">Book a 25 min call</button>
+        </div>
+        <div>
+            <video id="meetingVideo" autoplay muted src=""></video>
+            
+            <div class="buttonGrp">
+                <button class="button" id="autoFillButton1" onclick="hitButton(1)">Step 🌒</button>
+                <button class="button" id="autoFillButton2" onclick="hitButton(2)">Step 🌒</button>
+                <button class="button" id="autoFillButton3" onclick="hitButton(3)">Step 🌒</button>
+            </div>
+        </div>
+    </div>
+
+   
+    <script>
+       
+        
+        //button click chnage content start
+                function hitButton(buttonNumber) {
+                    if (buttonNumber === 1) {
+                        document.getElementById('meetingTitle').innerHTML = '<h2  id="meetingTitle" style="color: #F4F4F4; font-family: Poppins; font-size: 80px;  letter-spacing: -4px;font-weight: bold;">STEP 1, MEETING</h2>';
+                        document.getElementById('meetingVideo').src = 'https://galaxad.com/wp-content/uploads/2024/01/WhatsApp-Video-2024-01-29-at-4.02.15-PM.mp4';
+                        // document.getElementById('meetingParagraph').innerHTML = '<p>Send them something they\'ll actually use — a fun gift card or good old cash. And it only takes a few seconds.</p>';
+                    } else if (buttonNumber === 2) {
+                        document.getElementById('meetingTitle').innerHTML = '<h2 style="color: #F4F4F4; font-family: Poppins; font-size: 80px; letter-spacing: -4px;">STEP 2, WEBSITE OPTIMIZING</h2>';
+                        document.getElementById('meetingVideo').src = 'https://galaxad.com/wp-content/uploads/2024/01/WhatsApp-Video-2024-01-29-at-4.02.15-PM.mp4';
+                        // document.getElementById('meetingParagraph').innerHTML = '<p>Be the group dinner hero — grab the bill and settle up faster than it takes to down your drink.</p>';
+                    } else if (buttonNumber === 3) {
+                        document.getElementById('meetingTitle').innerHTML = '<h2 style="color: #F4F4F4; font-family: Poppins; font-size: 80px; letter-spacing: -4px;">STEP 3, MARKETING</h2>';
+                        document.getElementById('meetingVideo').src = 'https://galaxad.com/wp-content/uploads/2024/01/WhatsApp-Video-2024-01-29-at-4.02.15-PM.mp4';
+                        // document.getElementById('meetingParagraph').innerHTML = '<p>Sending and receiving money is just as easy as texting a friend.</p>';
+                    }
+                }
+        
+        //button click chnage content end
+        
+        
+        /////////////////////////
+        //button click chnage background color start
+        document.addEventListener("DOMContentLoaded", function() {
+            var buttons = document.querySelectorAll(".button");
+        
+            // Add event listener to handle button clicks
+            buttons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    // Reset all buttons' background colors
+                    buttons.forEach(function(btn) {
+                        btn.style.backgroundColor = '#6f6f70';
+                    });
+        
+                    // Set clicked button's background color to white
+                    button.style.backgroundColor = 'white';
+                   
+                    // Set a timeout to revert the background color after a delay
+                    setTimeout(function() {
+                        button.style.backgroundColor = '#6f6f70';
+                    }, 2000); // 2000 milliseconds = 2 seconds
+                });
+            });
+        });
+        //button click chnage background color end
+        
+        
+        
+        // chnage content and button animation start
+        document.addEventListener("DOMContentLoaded", function() {
+            var buttons = document.querySelectorAll(".button");
+            var timeouts = [];
+            var contentChanges = [
+                { heading: "STEP 1, MEETING", src: "https://galaxad.com/wp-content/uploads/2024/01/WhatsApp-Video-2024-01-29-at-4.02.15-PM.mp4", paragraph: "Send them something they'll actually use — a fun gift card or good old cash. And it only takes a few seconds." },
+                { heading: "STEP 2, WEBSITE OPTIMIZING", src: "https://galaxad.com/wp-content/uploads/2024/01/WhatsApp-Video-2024-01-29-at-4.02.15-PM.mp4", paragraph: "Be the group dinner hero — grab the bill and settle up faster than it takes to down your drink." },
+                { heading: "STEP 3, MARKETING", src: "https://galaxad.com/wp-content/uploads/2024/01/WhatsApp-Video-2024-01-29-at-4.02.15-PM.mp4", paragraph: "Sending and receiving money is just as easy as texting a friend." }
+            ];
+        
+            // Function to start animations and content changes
+            function startAnimations() {
+                for (var i = 0; i < buttons.length; i++) {
+                    animateButton(i);
+                }
+            }
+        
+            // Function to animate button
+            function animateButton(index) {
+                var button = buttons[index];
+                var fill = document.createElement("span");
+                fill.classList.add("fill");
+                button.appendChild(fill);
+        
+                // Trigger the fill animation after a delay
+                timeouts[index] = setTimeout(function() {
+                    fill.style.width = "100%";
+                   
+                    // Change the color of the button to transparent after fill animation completes
+                    setTimeout(function() {
+                        fill.classList.remove("fill");
+                    }, 11000); // 7000 milliseconds = 7 seconds (Same as the fill animation duration)
+        
+                    // Change content when button animation starts
+                    changeContent(contentChanges[index].heading, contentChanges[index].src, contentChanges[index].paragraph);
+                       // Start video playback
+                    
+                }, index * 11000); // Delay for each button
+            }
+        
+            // Function to change content
+            function changeContent(heading, src, paragraph) {
+                document.getElementById('meetingTitle').innerHTML = '<h2 style="color: #F4F4F4; font-family: Poppins; font-size: 80px;  letter-spacing: -4px;">' + heading + '</h2>';
+                document.getElementById('meetingVideo').src = src;
+                document.getElementById('meetingVideo').style.width = '480px';
+                document.getElementById('meetingVideo').style.height = '580px';
+               
+                // document.getElementById('meetingParagraph').innerHTML = paragraph;
+            }
+        
+            // Start animations initially
+            startAnimations();
+        
+            // Repeat animations and content changes after completing the cycle
+            setInterval(function() {
+                // Remove existing fill spans before starting the animation again
+                buttons.forEach(function(button, index) {
+                    var fill = button.querySelector('.fill');
+                    if (fill) {
+                        fill.remove();
+                        clearTimeout(timeouts[index]);
+                    }
+                });
+                // Restart animations and content changes
+                startAnimations();
+            }, buttons.length * 11000); // Repeat after all buttons finish
+        });
+        // chnage content and button animation end
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+                
+        
+            </script>
+</body>
+</html>
